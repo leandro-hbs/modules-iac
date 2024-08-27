@@ -1,4 +1,4 @@
-name: Update Version Tag
+name: Update Tag Feat
 
 on:
   create:
