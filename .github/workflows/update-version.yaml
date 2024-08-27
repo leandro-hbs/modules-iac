@@ -18,30 +18,30 @@ jobs:
         git config --global user.name 'github-actions'
         git config --global user.email 'actions@github.com'
 
-    - name: Get the latest tag from master
-      id: get_tag
+    - name: Fetch tags from master
+      id: fetch_tags
       run: |
         git fetch --tags
         latest_tag=$(git tag --list 'v*' | sort -V | tail -n 1)
         echo "LATEST_TAG=${latest_tag}" >> $GITHUB_ENV
 
-    - name: Increment version
+    - name: Increment version minor
       id: increment_version
       run: |
-        IFS='.' read -r major minor <<< "${LATEST_TAG#v}"
-        new_minor=$((minor + 1))
-        new_tag="v${major}.${new_minor}"
+        if [ -z "$LATEST_TAG" ]; then
+          new_tag="v1.0"
+        else
+          IFS='.' read -r major minor <<< "${LATEST_TAG#v}"
+          new_minor=$((minor + 1))
+          new_tag="v${major}.${new_minor}"
+        fi
         echo "NEW_TAG=${new_tag}" >> $GITHUB_ENV
 
-    - name: Get current branch name
-      id: get_branch
-      run: echo "CURRENT_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
-
-    - name: Create new tag
+    - name: Create and push new tag
       run: |
         git tag $NEW_TAG
         git push origin $NEW_TAG
 
     - name: Output new tag
       run: |
-        echo "New tag created: $NEW_TAG on $CURRENT_BRANCH"
+        echo "New tag created: $NEW_TAG"
