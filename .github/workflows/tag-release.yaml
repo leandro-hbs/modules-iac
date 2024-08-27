@@ -1,4 +1,4 @@
-name: Tag Release
+name: Update Tag Release
 
 on:
   pull_request:
