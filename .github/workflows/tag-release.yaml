@@ -29,7 +29,7 @@ jobs:
         git config --global user.email 'actions@github.com'
         git config --global url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
-    - name: Fetch tags from master
+    - name: Fetch tags from main
       id: fetch_tags
       run: |
         git fetch --tags
@@ -40,8 +40,8 @@ jobs:
       id: create_tag
       run: |
         latest_tag=${{ env.LATEST_TAG }}
-        major_version=$(echo $latest_tag | awk -F. '{print $1}')
-        new_tag="$((major_version + 1)).0-rc"
+        major_version=$(echo $latest_tag | awk -F. '{print $1}' | sed 's/v//')
+        new_tag="v$((major_version + 1)).0-rc"
         echo "NEW_TAG=${new_tag}" >> $GITHUB_ENV
 
     - name: Create and push new tag
@@ -51,4 +51,4 @@ jobs:
 
     - name: Output new tag
       run: |
-        echo "New tag created: $NEW_TAG"
+        echo "New tag created: ${{ env.NEW_TAG }}"
