@@ -43,8 +43,8 @@ jobs:
         git config --global url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
 
     - name: Terraform Docs
-        run: |
-          terraform-docs markdown . > README.md
+      run: |
+        terraform-docs markdown . > README.md
     
     - name: Clean up
         run: |
