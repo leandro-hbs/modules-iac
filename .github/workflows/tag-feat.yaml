@@ -3,15 +3,11 @@ name: Update Tag Feat
 on:
   create:
     branches:
-      - 'feat/*'
-    branches-ignore:
-      - 'develop'
-      - 'release'
+      - "feat/*"
 
 jobs:
   update-tag:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/feat/')
 
     steps:
     - name: Checkout code
