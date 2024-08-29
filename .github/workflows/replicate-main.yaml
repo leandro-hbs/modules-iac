@@ -33,15 +33,8 @@ jobs:
       run: |
         git fetch --all --prune
 
-    - name: Update local branches
-      run: |
-        git checkout main
-        git pull origin main
-        git checkout develop
-        git pull origin develop
-
     - name: Update develop branch
       run: |
         git checkout develop
-        git merge main --no-edit
+        git merge main --no-edit --allow-unrelated-histories
         git push origin develop
