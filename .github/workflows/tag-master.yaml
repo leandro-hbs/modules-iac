@@ -1,10 +1,10 @@
-name: Update Tag Master
+name: Update Tag Main
 
 on:
   pull_request:
     types: [closed]
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   update-tag:
