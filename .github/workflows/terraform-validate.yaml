@@ -27,8 +27,8 @@ jobs:
         sudo apt-get update && sudo apt-get install -y terraform
         terraform --version
     
-     - name: Install Checkov
-       run: |
+    - name: Install Checkov
+      run: |
         pip install checkov
     
     - name: Check PAT Token
