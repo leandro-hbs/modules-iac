@@ -36,5 +36,5 @@ jobs:
     - name: Update develop branch
       run: |
         git checkout develop
-        git merge main --no-ff --no-edit
+        git merge main --no-ff --no-edit --allow-unrelated-histories
         git push origin develop
