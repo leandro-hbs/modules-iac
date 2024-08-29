@@ -22,8 +22,10 @@ jobs:
 
     - name: Set up Terraform Docs
       run: |
-        sudo apt-get update
-        sudo apt-get install -y terraform-docs
+        curl -Lo terraform-docs.tar.gz https://github.com/terraform-docs/terraform-docs/releases/latest/download/terraform-docs-$(uname -s)-$(uname -m).tar.gz
+        tar -xzf terraform-docs.tar.gz
+        sudo mv terraform-docs /usr/local/bin/
+        terraform-docs --version
 
     - name: Generate Terraform Docs for all directories
       run: |
