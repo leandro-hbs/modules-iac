@@ -17,8 +17,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
 
     - name: Set up Terraform Docs
       run: |
@@ -26,16 +24,30 @@ jobs:
         tar -xzf terraform-docs-v0.16.0-linux-amd64.tar.gz
         sudo mv terraform-docs /usr/local/bin/
         terraform-docs --version
-
-    - name: Generate Terraform Docs for all directories
+    
+    - name: Check PAT Token
       run: |
-        find . -type d -exec sh -c 'cd "{}" && if [ -f main.tf ]; then terraform-docs markdown table . > README.md; fi' \;
+        if [ -z "${{ secrets.PAT_TOKEN }}" ]; then
+          echo "PAT_TOKEN is empty or not set"
+          exit 1
+        else
+          echo "PAT_TOKEN is set"
+        fi
 
-    - name: Configure Git
+    - name: Set up Git
       run: |
         git config --global user.name 'github-actions'
         git config --global user.email 'actions@github.com'
         git config --global url."https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
+    - name: Terraform Docs
+      run: |
+        terraform-docs markdown . > README.md
+    
+    - name: Clean up
+      run: |
+        rm terraform-docs-v0.16.0-linux-amd64.tar.gz
+        rm LICENSE
 
     - name: Commit and Push changes
       run: |
