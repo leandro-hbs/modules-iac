@@ -47,8 +47,8 @@ jobs:
         terraform-docs markdown . > README.md
     
     - name: Clean up
-        run: |
-          rm terraform-docs-v0.16.0-linux-amd64.tar.gz
+      run: |
+        rm terraform-docs-v0.16.0-linux-amd64.tar.gz
 
     - name: Commit and Push changes
       run: |
