@@ -9,6 +9,7 @@ on:
 jobs:
   update-tag:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'release'
 
     steps:
     - name: Checkout code
