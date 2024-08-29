@@ -47,6 +47,7 @@ jobs:
     - name: Clean up
       run: |
         rm terraform-docs-v0.16.0-linux-amd64.tar.gz
+        rm LICENSE
 
     - name: Commit and Push changes
       run: |
