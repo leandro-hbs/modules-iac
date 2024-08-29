@@ -27,6 +27,10 @@ jobs:
         sudo apt-get update && sudo apt-get install -y terraform
         terraform --version
     
+     - name: Install Checkov
+       run: |
+        pip install checkov
+    
     - name: Check PAT Token
       run: |
         if [ -z "${{ secrets.PAT_TOKEN }}" ]; then
@@ -46,3 +50,7 @@ jobs:
       run: |
         terraform init -input=false
         terraform validate
+
+    - name: Run Checkov for Security and Lint Checks
+      run: |
+        checkov -d . --quiet
