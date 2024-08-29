@@ -3,7 +3,7 @@ name: Update Tag Feat
 on:
   create:
     branches:
-      - 'feat/**'
+      - 'feat/'
 
 jobs:
   update-tag:
