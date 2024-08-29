@@ -4,9 +4,6 @@ on:
   create:
     branches:
       - 'feat/*'
-    branches-ignore:
-      - 'develop'
-      - 'release'
 
 jobs:
   update-tag:
